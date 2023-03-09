@@ -1,19 +1,81 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
 import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import background from '../static/login/background.jpg'
+import './styles-login.css'
 function Login() {
+
+  const [username, setUsername] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  const [isDisabled, setIsDisabled] = React.useState(true);
+  const [data, setData] = React.useState();
+
+  function handleChangeUsername(event:React.ChangeEvent<HTMLInputElement>) {
+    setUsername(event.target.value.toString());
+    if(event.target.value.length > 0)
+    {
+      setIsDisabled(false);
+    }
+    else if(event.target.value.length == 0)
+    {
+      setIsDisabled(true);
+    }
+  }
+
+  function handleChangePassword(event:React.ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value.toString());
+    if(event.target.value.length > 0)
+    {
+      setIsDisabled(false);
+    }
+    else if(event.target.value.length == 0)
+    {
+      setIsDisabled(true);
+    }
+  }
+
+  // This function will be triggered when the login-btn is clicked
+  const btnLoginClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    console.log(username)
+    console.log(password)
+
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const url = "http://localhost:3001/api/v1/auth/";
+
+    let user = JSON.stringify({
+      "Username": username,
+      "Password": password
+    });
+    
+    
+
+    axios.post(url, user, { headers })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+    
+    setUsername('');
+    setPassword('');
+    setIsDisabled(true);
+
+  };
   return (
     <div>   
         <div style={{height:"100vh"}} className='row'>
-            <div className='col d-flex align-items-center justify-content-center' style={{ backgroundImage:`url(${background})`,backgroundRepeat:"no-repeat",backgroundSize:"cover",opacity:1}} >
+            <div className='col-7 d-flex align-items-center justify-content-center' style={{ backgroundImage:`url(${background})`,backgroundRepeat:"no-repeat",backgroundSize:"cover",opacity:1}} >
               <div>
                 <h2 style={{float:'left',fontWeight:'bolder',opacity:1}}>BuddyBoss</h2>
                 <br />
                 <p style={{float:'left'}} > Sell memberships, courses, and build online communities.</p>
               </div> 
             </div>
-            <div className='col d-flex align-items-center justify-content-center'>
+            <div className='col-5 d-flex align-items-center justify-content-center'>
               <div>
                 <div>
                   <div className='align-items-left d-flex'>
@@ -26,10 +88,10 @@ function Login() {
               <div className="input-form mt-2">
                 <div className='w-100'>   
                   <div className="form-outline w-100">
-                  <input style={{marginBottom:10}} placeholder='Email Address' type="text" id="form12" className="form-control" />  
+                  <input style={{marginBottom:10}} placeholder='Email Address or username' onChange={handleChangeUsername} value={username} type="text" id="form-username" className="form-control" />  
                 </div>
                   <div className="form-outline w-100">
-                  <input  type="text" placeholder='Password' id="form12" className="form-control" />  
+                  <input  type="password" placeholder='Password' id="form-password" onChange={handleChangePassword} value={password} className="form-control" />  
                 </div>
                 </div>
               </div>
@@ -43,10 +105,10 @@ function Login() {
                 </div>
               </div>  
               <div>
-                <Button className="button btn btn-primary w-100 mt-4" style={{backgroundColor:'#69BFFF',border:'none',fontWeight:'bolder'}}>Login</Button>
+                <Button id='btn-login'  onClick={btnLoginClick} className="button btn btn-primary w-100 mt-4" disabled = {isDisabled} style={{backgroundColor:'#69BFFF',border:'none',fontWeight:'bolder'}}>Login</Button>
               </div>
-              <div className="privacy mt-4">
-                <p><a style={{textDecoration:'none',color:'#5a5a5a',fontWeight:550}} href='#'>Terms of Service</a> and <a style={{textDecoration:'none',color:'#5a5a5a',fontWeight:550}} href='#'>Privacy Policy</a></p>
+              <div style={{opacity:0.8}} className="privacy mt-4">
+                <p><a style={{textDecoration:'none',color:'#5a5a5a'}} href='#'>Terms of Service</a> and <a style={{textDecoration:'none',color:'#5a5a5a'}} href='#'>Privacy Policy</a></p>
               </div>
               </div>
             </div>
