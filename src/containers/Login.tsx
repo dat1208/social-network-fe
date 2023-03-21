@@ -1,15 +1,48 @@
 import React, { useState } from 'react'
-import axios from 'axios';
 import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import background from '../static/login/background.jpg'
 import './styles-login.css'
-function Login() {
+import SweetAlert2 from 'react-sweetalert2';
+import login from '../services/api/Auth/login'
+import UserServices from '../services/user/UserServices'
 
-  const [username, setUsername] = React.useState("")
-  const [password, setPassword] = React.useState("")
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { useAppDispatch } from '../store/store';
+import { setUserSession } from "../store/features/userSessionSlice";
+import { useAppSelector } from '../store/store'
+
+
+import { Token_User } from "../interface/interfaces";
+
+import LoadingCmpt from '../components/Loading/LoadingCmpt'
+
+const Login = () => {
+
+  /*Test area*/
+
+  //const user = useAppSelector(state=>state.user.user);
+
+  /*Test area*/
+  
+
+  /* useState */
+  const [swalProps, setSwalProps] = useState({});
+  const [username, setUsername] = React.useState("thanhdatne")
+  const [password, setPassword] = React.useState("thanhdatnepass")
   const [isDisabled, setIsDisabled] = React.useState(true);
-  const [data, setData] = React.useState();
+  const [loading, setloading] = React.useState(true);
+  /* useState */
+  
+ function alert(title:string, text?:string, icon?:string) {
+      setSwalProps({
+          show: true,
+          title: title,
+          text: text,
+          icon: icon,
+      });
+  }
 
   function handleChangeUsername(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value.toString());
@@ -33,35 +66,40 @@ function Login() {
 
   // This function will be triggered when the login-btn is clicked
   const btnLoginClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    
     event.preventDefault()
+    let data;
 
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'http://localhost:3001/api/v1/auth/',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: false,
-      data: {
-        "Username": "thanhdatne",
-        "Password": "thanhdatnepass"
-      }
-    };
+    try {
+      data = await login(username, password) as unknown as Token_User;
+    } catch (error) {
+      console.log(error);
+    }
+    
+    if(data != null) {
+      console.log(data.User);
 
-    axios(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      const user = data.User;
 
+      UserServices.storeUserDisplay(user);
+
+      dispatch(setUserSession({
+        user_Display: {
+          Id :user.Id,
+          AvatarURL:user.AvatarURL,
+          DisplayName:user.DisplayName,
+          UserProfileUrl:user.UserProfileUrl
+        }
+    }))
+    }
+    
     setUsername('');
     setPassword('');
     setIsDisabled(true);
 
   };
+  const dispatch = useAppDispatch();  
+
   return (
     <div>
       <div style={{ height: "100vh" }} className='row'>
@@ -103,6 +141,11 @@ function Login() {
             </div>
             <div>
               <Button id='btn-login' onClick={btnLoginClick} className="button btn btn-primary w-100 mt-4" disabled={isDisabled} style={{ backgroundColor: '#69BFFF', border: 'none', fontWeight: 'bolder' }}>Login</Button>
+              <LoadingCmpt></LoadingCmpt>
+            </div>
+            <div>
+            </div>
+            <div>
             </div>
             <div style={{ opacity: 0.8 }} className="privacy mt-4">
               <p><a style={{ textDecoration: 'none', color: '#5a5a5a' }} href='#'>Terms of Service</a> and <a style={{ textDecoration: 'none', color: '#5a5a5a' }} href='#'>Privacy Policy</a></p>
@@ -110,6 +153,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <SweetAlert2 {...swalProps} />
     </div>
 
 

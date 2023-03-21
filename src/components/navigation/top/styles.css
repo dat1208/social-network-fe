@@ -165,3 +165,51 @@ a:hover{
 .w-100{
     max-width: 100%!important;
 }
+.create-post{
+    padding: 10px;
+    height: auto;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.create-post > button{
+   
+}
+
+.createpost-icon {
+    font-size: 20px !important;
+    color:#5d6366 !important;
+}
+
+.createpost-btn{
+    display: inline!important;
+    max-width: fit-content !important;
+}
+.input-group-form{
+    height: fit-content!important;
+    
+}
+
+.input-group-img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    max-width: 50px !important;
+}
+.btn-group{
+    padding-top: 10px !important;
+}
+
+.btn-group > a:hover{
+    color: white!important;
+}
+
+.btn-group > a > .createpost-icon :hover{
+    color:#373b3d !important;
+}
+
+.create-post > .input-group {
+    width: 100% !important;
+    border: none !important;
+}

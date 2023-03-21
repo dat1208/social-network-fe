@@ -1,38 +1,73 @@
-import React from 'react'
-import {Nav} from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import {Button, Nav} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import {FiActivity} from 'react-icons/fi'
 import {FaUserFriends} from 'react-icons/fa'
 import {MdGroups} from 'react-icons/md'
 import {MdForum} from 'react-icons/md'
 import {RiPagesFill} from 'react-icons/ri'
 import {BiSearch} from 'react-icons/bi'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import './styles.css'
-import Post from '../../post/Post'
+import PostCmpn from '../../post/PostCmpn'
+import CreatePost from '../../input/CreatePost'
+ 
+import UserServices from '../../../services/user/UserServices'
+
+import { User_Display } from '../../../interface/interfaces'
+import Avatar from '@mui/joy/Avatar/Avatar'
 
 function Navigation (){
+
+    /* useState */
+    const [userDisplay, setUserDisplay] = React.useState({
+        "Id": "",
+        "AvatarURL": "",
+        "DisplayName": "",
+        "UserProfileUrl": ""
+    });
+    
+    /* useState */
+
+
+    useEffect(() =>{
+
+        const getUser = () => {
+            if( typeof(UserServices.getUserDisplay()) != undefined || null )
+        {
+            const user = JSON.parse(UserServices.getUserDisplay() || '{}');
+            setUserDisplay(user);
+            
+        }
+        };
+        getUser();
+        console.log(userDisplay);
+       },[]);
+
+       
     return(    
         <div>
             <div className='nav navbar navbar-expand-sm sticky-top align-items-center navcontainer border'>
-                <Nav className='w-100 row'><div className='col-3 left-nav align-items-left justify-content-left'>
-                        <h4 className='margin-0' style={{fontWeight:700}} >Social Network</h4>
+                <Nav className='w-100 row'>
+                    <div className='col-3 left-nav d-flex justify-content-center'>
+                        <h4 className='margin-0' style={{fontWeight:700, marginLeft:30}} >Social Network</h4>
                     </div>
-                    <div className='col-6 center-nav align-items-center justify-content-center '>
+                    <div className='col-6 center-nav d-flex justify-content-center'>
                         <a className='center_nav_item'><FiActivity className='center_nav_item_icon'></FiActivity></a>
                         <a className='center_nav_item'><FaUserFriends className='center_nav_item_icon'></FaUserFriends></a>
                         <a className='center_nav_item'><MdForum className='center_nav_item_icon'></MdForum></a>
                         <a className='center_nav_item'><RiPagesFill className='center_nav_item_icon'></RiPagesFill></a>
                         <a className='center_nav_item'><MdGroups className='center_nav_item_icon'></MdGroups></a>
                     </div>
-                    <div className='col-3 right-nav align-items-right justify-content-right'>
+                    <div className='col-3 right-nav d-flex justify-content-center'>
                         <a className='center_nav_item_icon'><BiSearch className='center_nav_item_icon'></BiSearch></a>
-                        <a style={{marginLeft:20,fontSize:15}}>Sign in</a>
+                        
                     </div>
                 </Nav>
             </div>
             <div className='main_container'>
-                <div className='col-3'>
+                <div className='col-sm-auto col'>
                     <div className=" border rounded bg-white left-sidebar">
                         <div className="sidebar position-sticky">
                             <div>
@@ -70,9 +105,12 @@ function Navigation (){
                     </div>
                 </div>
                 <div className='col-6'>
-                    <div className='main-title row'>
+                    <div className='main-title row w-100'>
                         <h4 className='main-title padding-0'>Activity Feed</h4>
                     </div>
+                    {/* This component is create new post */}
+                    <CreatePost urlProfile={userDisplay.UserProfileUrl} name={userDisplay.DisplayName} urlAvatar={userDisplay.AvatarURL}></CreatePost>
+                    
                     <div className='bar-title row'>
                         <div className='col-6 padding-0'>
                             <a className='main-title-activity'><h4 className='main-title-activity'>All updates</h4></a>
@@ -88,7 +126,8 @@ function Navigation (){
                     </div>
 
                     {/* This component is one post */}
-                    <Post></Post>
+                    <PostCmpn></PostCmpn>
+                    
 
                 </div>
                 <div className='col-md-push-3'>
@@ -97,8 +136,9 @@ function Navigation (){
                             <h4 className='right-sidebar-title' >Latest updates</h4>
                             <div>
                                 <div className='row row-right-sidebar-post'>
+                                
                                         <div className="col-3 right-sidebar-post">
-                                                <img className='right-sidebar-post-img' src={'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'}></img>
+                                                <Avatar className='right-sidebar-post-img' alt="Đạt" src={'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'} />
                                         </div>
                                         <div className="col-8 right-sidebar-post">
                                                 <div className="row right-sidebar-post-content">
