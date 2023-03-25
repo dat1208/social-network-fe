@@ -16,7 +16,7 @@ import { useAppSelector } from '../store/store'
 
 import { Token_User } from "../interface/interfaces";
 
-import LoadingCmpt from '../components/Loading/LoadingCmpt'
+import LoadingCmpt from '../components/loading/LoadingCmpt'
 
 const Login = () => {
 

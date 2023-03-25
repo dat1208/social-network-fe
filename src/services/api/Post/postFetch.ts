@@ -3,25 +3,30 @@ import { Response_Page_Next_Previous, Post, Page_Next_Previous} from "../../../i
 import config from "../config/init"
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
-async function getPosts(page: number, size: number){
+async function getPosts(page: number, size: number, sort: string){
 
     let Data;
-    await config.with_token.post('/posts/current',null,
-    {
-        params:{
-            page:page,
-            size:size
-        }
-    }).then(res => {
-        console.log("handlePostsResponse data");
-      
-        Data =  handlePostsResponse(res.data);
-    }).catch(err => {
-        console.log("handlePostsResponse error");
-       handlePostsResponse(err.response.data);
-
+    try {
+            await config.with_token.post('/posts/current',null,
+        {
+            params:{
+                page:page,
+                size:size,
+                sort:sort
+            }
+        }).then(res => {
+            console.log("handlePostsResponse data");
         
-    });
+            Data =  handlePostsResponse(res.data);
+        }).catch(err => {
+            console.log("handlePostsResponse error");
+        handlePostsResponse(err.response.data);
+    
+        });
+    } catch (error) {
+        console.log("Post fetch error: " + error);
+    }
+    
     return Data;
 }
 

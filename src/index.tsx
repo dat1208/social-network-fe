@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import Login from './containers/Login';
 import Home  from './containers/Home';
+import Signup from './containers/Signup';
 
 
 const root = ReactDOM.createRoot(
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     path: "/home",
     element: <Home></Home>,
   },
+  {
+    path: "/signup",
+    element: <Signup></Signup>,
+  }
 ]);
 
 

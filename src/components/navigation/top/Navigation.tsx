@@ -109,7 +109,10 @@ function Navigation (){
                         <h4 className='main-title padding-0'>Activity Feed</h4>
                     </div>
                     {/* This component is create new post */}
-                    <CreatePost urlProfile={userDisplay.UserProfileUrl} name={userDisplay.DisplayName} urlAvatar={userDisplay.AvatarURL}></CreatePost>
+                    <div className='row border m-0 rounded bg-white create-post w-100'>
+                        <CreatePost urlProfile={userDisplay.UserProfileUrl} name={userDisplay.DisplayName} urlAvatar={userDisplay.AvatarURL}></CreatePost>
+                    </div>
+                    
                     
                     <div className='bar-title row'>
                         <div className='col-6 padding-0'>

@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import background from '../static/login/background.jpg'
 import './styles-signup.css'
-function Login() {
+function Signup() {
 
   const [username, setUsername] = React.useState("")
   const [password, setPassword] = React.useState("")
@@ -111,4 +111,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Signup

@@ -43,7 +43,7 @@ function handleLoginResponse(res:Response_Token_User){
                 confirmButtonText: 'Great ',
                 allowOutsideClick: true,
             })
-             tokenServices.storeToken(res.Data.Token.AccessToken, res.Data.Token.RefreshToken);
+            tokenServices.storeToken(res.Data.Token.AccessToken, res.Data.Token.RefreshToken);
             data = res.Data;
             
             break;
