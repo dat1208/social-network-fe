@@ -253,7 +253,7 @@ const fetchMore : Fn = async () =>{
                                 <div className="row">
                                 <div className="col-sm"> 
                                     
-                                       <Like pId={post.Id} isLiked={false} numofLikesProp={post.NumOfLike} ></Like>
+                                       <Like pId={post.Id} isLiked={post.IsLiked} numofLikesProp={post.NumOfLike} ></Like>
 
                                        
                                     
@@ -407,21 +407,34 @@ interface props_like {
     //updateNum: (pId: string, num:number) => void
 }
 
-const Like : React.FC<props_like> = ({pId,numofLikesProp,isLiked}) =>{
+
+
+import likePost from "../../services/api/Post/likePost";
+import { Response_Like } from "../../interface/interfaces";
+
+const Like : React.FC<props_like> = ({pId,numofLikesProp,isLiked}) =>{ 
     const [Liked, setLiked] = React.useState(isLiked);
     const [numOfLiked, setNumOfLiked] = React.useState(numofLikesProp);
-    function handleButtonClick() {
+    async function handleButtonClick() {
         if(Liked === true){
-            setLiked(false);
+            let data = await likePost.unLike(pId) as unknown as Response_Like;
+            if(data.Status === 0)
+            {
+                setNumOfLiked(numOfLiked - 1);
+                setLiked(false);
+            }
+            
         }
         else{
-            setLiked(true);
+            let data = await likePost.like(pId) as unknown as Response_Like; 
+            if(data.Status === 0) {
+                setNumOfLiked(numOfLiked + 1);
+                setLiked(true);
+            }    
+            
         }
     }
     
-    function handleIsLike(){
-            return <Button onClick={handleButtonClick} ><ThumbUpAltIcon color={isLiked ? "action" : "primary"} /></Button>;
-    }
     return (
         <div>
             <Badge badgeContent={numOfLiked} color="primary">

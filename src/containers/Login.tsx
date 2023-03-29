@@ -17,6 +17,7 @@ import { useAppSelector } from '../store/store'
 import { Token_User } from "../interface/interfaces";
 
 import LoadingCmpt from '../components/loading/LoadingCmpt'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
@@ -35,6 +36,9 @@ const Login = () => {
   const [loading, setloading] = React.useState(true);
   /* useState */
   
+  const navigate = useNavigate();
+
+
  function alert(title:string, text?:string, icon?:string) {
       setSwalProps({
           show: true,
@@ -91,11 +95,13 @@ const Login = () => {
           UserProfileUrl:user.UserProfileUrl
         }
     }))
+    navigate("/home");
     }
     
     setUsername('');
     setPassword('');
     setIsDisabled(true);
+    
 
   };
   const dispatch = useAppDispatch();  
@@ -140,15 +146,13 @@ const Login = () => {
               </div>
             </div>
             <div>
-              <Button id='btn-login' onClick={btnLoginClick} className="button btn btn-primary w-100 mt-4" disabled={isDisabled} style={{ backgroundColor: '#69BFFF', border: 'none', fontWeight: 'bolder' }}>Login</Button>
-              <LoadingCmpt></LoadingCmpt>
-            </div>
+              <Button id='btn-login' onClick={btnLoginClick} className="button btn btn-primary w-100 mt-4" disabled={isDisabled} style={{ backgroundColor: '#69BFFF', border: 'none', fontWeight: 'bolder' }}>Login</Button>            </div>
             <div>
             </div>
             <div>
             </div>
             <div style={{ opacity: 0.8 }} className="privacy mt-4">
-              <p><a style={{ textDecoration: 'none', color: '#5a5a5a' }} href='#'>Terms of Service</a> and <a style={{ textDecoration: 'none', color: '#5a5a5a' }} href='#'>Privacy Policy</a></p>
+              <p> Don't have an account ? <a style={{ textDecoration: 'none', color: '#5a5a5a' }} href='/signup'>Sign up</a></p>
             </div>
           </div>
         </div>

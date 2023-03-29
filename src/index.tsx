@@ -13,6 +13,7 @@ import {
 import Login from './containers/Login';
 import Home  from './containers/Home';
 import Signup from './containers/Signup';
+import Chat from './components/chat/ChatBox';
 
 
 const root = ReactDOM.createRoot(
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup></Signup>,
+  },
+  {
+    path: "/chat",
+    element: <Chat userIDto='64229848df27353d469ff935'></Chat>,
   }
 ]);
 

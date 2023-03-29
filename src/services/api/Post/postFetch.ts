@@ -2,6 +2,7 @@ import TokenServices from "../../token/TokenServices"
 import { Response_Page_Next_Previous, Post, Page_Next_Previous} from "../../../interface/interfaces"
 import config from "../config/init"
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { useNavigate } from "react-router-dom";
 
 async function getPosts(page: number, size: number, sort: string){
 
@@ -33,6 +34,7 @@ async function getPosts(page: number, size: number, sort: string){
 
 async function handlePostsResponse(res:Response_Page_Next_Previous){
     let Data;
+
     console.log(res);
         switch(res.Status){
             case 0:
@@ -50,7 +52,12 @@ async function handlePostsResponse(res:Response_Page_Next_Previous){
                     title: 'Please login again !',
                     text: 'Your session has expired.',
                     icon: 'info',
-                    confirmButtonText: 'Login'
+                    confirmButtonText: 'Login',
+                    didClose() {
+                       () => {
+                        window.location.href = "/";
+                       }
+                    },
                 })
                 break;
         }

@@ -38,7 +38,8 @@ interface Post{
     NumOfComment: number,
     CommentsURL: string,
     NumOfLike: number,
-    LikesURL: string
+    LikesURL: string,
+    IsLiked: boolean
 }
 
 enum Scopes{
@@ -132,6 +133,25 @@ interface Response_Create_Comments extends Response{
     "Data": CreateComments | null
 }
 
+interface Response_Like extends Response{
+    "Data": null
+}
+
+interface Response_Signup extends Response{
+    "Data": any
+}
+interface Response_GetId_User extends Response{
+    "Data": string | null
+}
+
+interface Response_GetRoomID extends Response{
+    "Data": {
+        "Id": string,
+        "Participates": Array<string>,
+        "DocumentStored": string,
+        "CreatedAt": Date
+    } | null
+}
 export type {
     Response_Token_User,
     Response_Page_Next_Previous,
@@ -145,5 +165,9 @@ export type {
     Response_Create_Post,
     Create_Post,
     Response_Create_Comments,
-    CreateComments
+    CreateComments,
+    Response_Like,
+    Response_Signup,
+    Response_GetId_User,
+    Response_GetRoomID
 }

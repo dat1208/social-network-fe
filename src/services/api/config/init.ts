@@ -7,7 +7,7 @@ const with_default = axios.create({
         "Content-Type":"application/json"
     },
     withCredentials:false,
-    timeout:10000,
+    timeout:30000,
 });
 
 
@@ -17,7 +17,7 @@ let with_token = axios.create({
         "Content-Type":"application/json",
         "Authorization":localStorage.getItem('token')
     },
-    timeout:10000,
+    timeout:30000,
 });
 
 export default {

@@ -30,7 +30,7 @@ async function refreshToken(){
         }
         console.log("----------After store Token---------");
         console.log(getAccessToken());
-
+        window.location.reload();
     })
 }
 

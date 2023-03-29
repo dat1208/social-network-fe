@@ -17,6 +17,7 @@ import UserServices from '../../../services/user/UserServices'
 
 import { User_Display } from '../../../interface/interfaces'
 import Avatar from '@mui/joy/Avatar/Avatar'
+import Friends from './Friends'
 
 function Navigation (){
 
@@ -67,42 +68,17 @@ function Navigation (){
                 </Nav>
             </div>
             <div className='main_container'>
-                <div className='col-sm-auto col'>
+                <div className='col-3'>
                     <div className=" border rounded bg-white left-sidebar">
                         <div className="sidebar position-sticky">
                             <div>
-                                <h4 className='left-sidebar-title'>Blog</h4>
-                                <div>
-                                    <div className='row row-left-sidebar-post'>
-                                        <div className="col-4 left-sidebar-post">
-                                            <img className='left-sidebar-post-img' src={'https://himoon.vn/wp-content/uploads/2022/06/blog-ca-nhan-bang-wordpress-create-a-blog-2022.png'}></img>
-                                        </div>
-                                        <div className="col-8 left-sidebar-post">
-                                            <div className="row left-sidebar-post-content">
-                                            Tackle Your closest Spring cleaning
-                                            </div>
-                                            <div className="row left-sidebar-post-date">
-                                            May 14, 2019
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='row row-left-sidebar-post'>
-                                        <div className="col-4 left-sidebar-post">
-                                            <img className='left-sidebar-post-img' src={'https://www.marketing365.com.br/wp-content/uploads/2018/12/5-dicas-para-melhor-seu-blog.png'}></img>
-                                        </div>
-                                        <div className="col-8 left-sidebar-post">
-                                            <div className="row left-sidebar-post-content">
-                                            The Truth About Business Blogging
-                                            </div>
-                                            <div className="row left-sidebar-post-date">
-                                            May 14, 2019
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h4 className='left-sidebar-title'>Friends</h4>
+                                <Friends></Friends>
+
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div className='col-6'>
                     <div className='main-title row w-100'>
