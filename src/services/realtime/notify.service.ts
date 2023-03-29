@@ -7,7 +7,7 @@ import io from 'socket.io-client';
  * Dùng hàm này trong component thông báo đặng nó lấy thông báo về
  * 
   useEffect(() => {
-    const notify: NotifyService = new NotifyService('this-is-accesstoken', ';'this-is-userid');
+    const notify: NotifyService = new NotifyService('this-is-accesstoken', 'this-is-userid');
     notify.onListenMessage((message) => {
       // message kiểu json
       console.log('recieve message', message);
@@ -24,11 +24,11 @@ export class NotifyService {
   private CHANNEL: string = 'message';
   private socket: any;
 
-  constructor(accesstoken: string, userId: string) {
+  constructor(accesstoken: string, userId: string, limitMessage: number) {
     this.socket = io(this.SOCKET_SERVER_URL,
       {
         auth: { accesstoken },
-        query: { userId: userId }
+        query: { userId: userId, limitMessage: limitMessage },
       });
     console.log('SOCKET.IO Establish connection')
   }
@@ -38,5 +38,13 @@ export class NotifyService {
 
   public onListenError(callback: (error: any) => void): void {
     this.socket.on('connect_error', callback);
+  }
+
+  public getNotify(userId: string, page: number, limit: number): void {
+    this.socket.emit(this.CHANNEL, {
+      userId: userId,
+      page: page,
+      limit: limit
+    })
   }
 }
