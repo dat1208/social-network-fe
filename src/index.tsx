@@ -14,6 +14,7 @@ import Login from './containers/Login';
 import Home  from './containers/Home';
 import Signup from './containers/Signup';
 import Chat from './components/chat/ChatBox';
+import InBox from './components/chat/InBox';
 
 
 const root = ReactDOM.createRoot(
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/chat",
-    element: <Chat userIDto='64229848df27353d469ff935'></Chat>,
+    element: <InBox userIDto='6423e3f14c08244aca2724fa'></InBox>,
   }
 ]);
 

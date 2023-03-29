@@ -1,4 +1,4 @@
-import { Firestore, addDoc,setDoc, getDoc,getDocs , documentId,query, where, collection, serverTimestamp, doc } from "firebase/firestore";
+import { Firestore, addDoc,setDoc, getDoc,getDocs , documentId,query, where, collection, serverTimestamp, doc, orderBy, limit } from "firebase/firestore";
 import {db} from "../../services/firebase/init";
 import React from 'react';
 import { Box, IconButton, TextField } from '@mui/material';
@@ -12,43 +12,46 @@ interface Props {
     //userAvatar :string
 }
 
+
+
 const Chat : React.FC<Props> = ({userIDto}) => {
     const [message, setMessage] = React.useState("");
     const [userIDTo,setUserIDTo]  = React.useState(userIDto);
     const [userOwnID,setUserOwnID]  = React.useState("");
     const [roomID,setRoomID] = React.useState("");
-    const [data,setData] = React.useState({
-        
-    });  
+    const [data,setData] = React.useState({});  
 
-    async function getUserIDTo(){
-        return getuid;
-    }
+    React.useEffect(() => {
+        
+        const fetchData = async () => {
+            const OwnUID = await getuid() as unknown as string;
+            setUserOwnID(OwnUID)             
+            
+            const roomID = await getRoom(userIDTo,OwnUID);
+            if(roomID)
+                setRoomID(roomID);
+            
+            console.log("UIDOwn: "+OwnUID);
+            console.log("UIDTo: "+userIDTo);
+            console.log("RoomID: "+roomID);
+        }
+      
+        
+        fetchData()
+        
+      }, [])
     
 
     async function handleCLick(){
-
-        
-
-        const OwnUID = await getUserIDTo();
-        if(OwnUID){
-            await setUserOwnID(OwnUID); 
-            
-            const roomID = await getRoom(userIDTo,userOwnID);
-            if(roomID)
-               await setRoomID(roomID);
-        }
-        
-        console.log("UID: "+OwnUID+" | "+userIDTo+ " | "+roomID);
         
         setData({
-            userID:  OwnUID,
+            userID:  userOwnID,
             text: message,
             createdTime: serverTimestamp()
         })
     
 
-        const roomRef = await doc(db, "messages", roomID);
+        const roomRef = doc(db, "messages", roomID);
 
         const roomSnap = await getDoc(roomRef);
 
@@ -58,11 +61,16 @@ const Chat : React.FC<Props> = ({userIDto}) => {
         }
         else{
             const collectionRef = collection(db, "messages", roomID, "chat");
-            addDoc(collectionRef, data);
+            addDoc(collectionRef, {
+                userID:  userOwnID,
+                text: message,
+                createdTime: serverTimestamp()
+            });
         }
         console.log("Added");
         
     };
+
     return (
      <div style={{height:500}} className='rounded border'>
             <Box border={"ActiveBorder"}>

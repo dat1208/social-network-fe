@@ -8,7 +8,7 @@ async function getPosts(page: number, size: number, sort: string){
 
     let Data;
     try {
-            await config.with_token.post('/posts/current',null,
+            await config.with_token.get('/posts/current',
         {
             params:{
                 page:page,

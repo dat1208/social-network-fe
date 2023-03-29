@@ -3,7 +3,7 @@ import init from "../config/init";
 import { Response_GetRoomID } from "../../../interface/interfaces";
 
 async function getRoom(UIDto :string, UIDown :string) {
-    let roomID = null;
+    let roomID;
 
     await init.with_token.post("/chat",{
         FirstId: UIDown,

@@ -5,7 +5,7 @@ import init from "../config/init";
 
 
 async function getUID() {
-    let uid = null;
+    let OwnUID;
     await init.with_token.get("/user").then(res => {
         console.log(res);
 
@@ -14,11 +14,12 @@ async function getUID() {
         if(response.Status === 4)
             TokenServices.refreshToken();
         else if(response.Status === 0){
-            uid = response.Data;
+            OwnUID = response.Data;
+            console.log(OwnUID);
         }
     }).catch(err => TokenServices.refreshToken())
 
-    return uid;
+    return OwnUID;
 }
 
-export default getUID();
+export default getUID;
