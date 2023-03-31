@@ -20,7 +20,7 @@ import io from 'socket.io-client';
  */
 
 export class NotifyService {
-  private SOCKET_SERVER_URL: string = 'http://localhost:3001';
+  private SOCKET_SERVER_URL: string = 'http://localhost:3005';
   private CHANNEL: string = 'message';
   private socket: any;
 
@@ -32,7 +32,7 @@ export class NotifyService {
       });
     console.log('SOCKET.IO Establish connection')
   }
-  public onListenMessage(callback: (message: string) => void): void {
+  public onListenMessage(callback: (message: any) => void): void {
     this.socket.on(this.CHANNEL, callback);
   }
 

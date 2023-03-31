@@ -18,6 +18,7 @@ import UserServices from '../../../services/user/UserServices'
 import { User_Display } from '../../../interface/interfaces'
 import Avatar from '@mui/joy/Avatar/Avatar'
 import Friends from './Friends'
+import { Notification } from '../../notify/notify'
 
 function Navigation (){
 
@@ -111,6 +112,8 @@ function Navigation (){
                 </div>
                 <div className='col-md-push-3'>
                     <div className="border rounded bg-white right-sidebar row">
+                        <Notification />
+
                         <div>
                             <h4 className='right-sidebar-title' >Latest updates</h4>
                             <div>

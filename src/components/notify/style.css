@@ -1,0 +1,57 @@
+.button {
+  background-color: #096bde;
+  padding: 5px;
+  border-radius: 4px;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button-accept {
+  margin-right: 7px;
+}
+
+.button-denie {
+  background-color: #E4E6EB;
+  color: rgb(24, 24, 24);
+}
+
+.avatar-notify {
+  width: 50px
+}
+
+.notify-layout {
+  border-radius: 4px;
+  padding-bottom: 7px;
+}
+
+.notify-layout:hover {
+  background-color: #f6f8ff;
+  cursor: pointer;
+}
+
+.notify-layout-unread {
+  background-color: #f6f8ff;
+  cursor: pointer;
+}
+
+.scrollbar {
+  background-color: #F5F5F5;
+  float: left;
+  height: 300px;
+  margin-bottom: 25px;
+  margin-left: 22px;
+  margin-top: 40px;
+  width: 65px;
+  overflow-y: scroll;
+}
+
+.force-overflow {
+  min-height: 450px;
+}
