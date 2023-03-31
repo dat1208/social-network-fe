@@ -1,0 +1,34 @@
+.Main{
+    padding-left: 10%!important;
+    padding-right: 10%!important;
+}
+
+.user_info{
+   height: 300px!important; 
+   border-style: solid;
+   border-color: rgb(236, 234, 234);
+   border-width: 1px;
+   border-radius: 0px 0px 10px 10px;
+    position: relative;
+}
+.right-col{
+    padding-top: 2%!important;
+    padding-left: 2%!important;
+
+}
+.banner{
+    background-image: url('https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80');
+}
+.user_info > .bottom {
+    padding: 2%;
+}
+.bootom-right{
+    padding-right: 0!important;
+}
+.bottom-icon-a{
+    margin-left: 2%!important;
+}
+.bottom-icon{
+    font-size: 25px;
+    
+}
