@@ -12,15 +12,23 @@ COPY . .
 RUN npm run build
 
 # hosting
+# Set the base image
+FROM node:14-alpine
 
-# Bundle static assets with nginx
-FROM nginx:1.23-alpine as production
-ENV NODE_ENV production
-# Copy built assets from builder
-COPY --from=builder /app/build /usr/share/nginx/html
-# Add your nginx.conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Expose port
-EXPOSE 80
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files to the working directory
+COPY package*.json ./
+
+# Install the dependencies
+RUN npm install
+
+# Copy the remaining source code to the working directory
+COPY . .
+
+# Expose port 3000
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]

@@ -1,0 +1,55 @@
+.dark-gray{
+    color: #393E41 !important;
+}
+
+.owner-avatar-flex {
+    border-radius: 50%;
+   
+}
+
+.owner-avatar {
+    width: 80;
+    border-radius: 50%;
+}
+.owner-info{
+    text-align: left;
+    height: fit-content;
+}
+owner-info-username{
+    font-weight: 700!important;
+}
+.main{
+    padding: 15px;
+    height: fit-content;
+}
+.padding-0{
+    padding: 0!important;
+}
+.margin-0{
+    margin: 0!important;
+}
+.bold-650{
+    font-weight: 600!important;
+}
+.owner-info-date{
+    
+}
+.content{
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.media > source{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.border-40{
+    border-radius: 20px!important;
+}
+.video-mask{
+    width: fit-content;
+    border-radius: 10px; 
+    overflow: hidden; 
+}
