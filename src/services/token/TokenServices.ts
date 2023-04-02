@@ -1,6 +1,6 @@
 import init from "../api/config/init";
 import { Response_Refresh_Token_User } from "../../interface/interfaces";
-
+import base from "../function/base";
 function storeToken(token: string, refreshToken:string){
     localStorage.setItem('token', token);
     localStorage.setItem('refreshToken', refreshToken);
@@ -18,25 +18,27 @@ async function refreshToken(){
         "AccessToken":getAccessToken(),
         "RefreshToken":getRefreshToken(),
     }).then(async res => {
-        console.log("----------Old Token---------");
-        console.log(getAccessToken());
-        console.log(getRefreshToken());
-        console.log('-------------New token--------------');
+       
         let NewToken : Response_Refresh_Token_User = res.data;
         console.log(NewToken);
         if(NewToken.Data)
         {
             storeToken(NewToken.Data.AccessToken,NewToken.Data.RefreshToken);
         }
-        console.log("----------After store Token---------");
-        console.log(getAccessToken());
+        
         window.location.reload();
     })
+}
+
+function clearToken() {
+    localStorage.clear();
+    base.redirect("/");
 }
 
 export default {
     storeToken,
     getAccessToken,
     getRefreshToken,
-    refreshToken
+    refreshToken,
+    clearToken
 }

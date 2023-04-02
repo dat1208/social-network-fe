@@ -7,10 +7,6 @@ import Avatar from '@mui/joy/Avatar'
 import Gallery from '../post/MediaGalleryCmpnW';
 import 'bootstrap/dist/css/bootstrap.css';
 import {AiFillCamera} from 'react-icons/ai'
-import {BsFillCameraVideoFill} from 'react-icons/bs'
-import {AiFillFileAdd} from 'react-icons/ai'
-import {AiOutlineGif} from 'react-icons/ai'
-import { Create_Post } from '../../interface/interfaces';
 import handleSubmitService from '../../services/api/Post/postCreate';
 
 import './CreatePostStyles.css'
@@ -79,7 +75,7 @@ function CreatePost(props: props){
 
             
                         <div>
-                        <div style={{marginBottom:5}} className='row p-0 input-group'>
+                        <div style={{marginBottom:'1%'}} className='row p-0 input-group'>
                             <div className='col-sm-auto padding-0'>
                                 <div className='input-group-img'>
                                 <Avatar alt={props.name} src={props.urlAvatar}></Avatar>
@@ -109,9 +105,6 @@ function CreatePost(props: props){
                             <a className='btn createpost-btn'><AiFillCamera className='createpost-icon'></AiFillCamera></a>
                                 <input type="file" accept="image/*" style={{display:'none'}} multiple onChange={(e) => selectFiles(e)} />
                             </label>
-                            <a className='btn createpost-btn'><BsFillCameraVideoFill className='createpost-icon'></BsFillCameraVideoFill></a>
-                            <a className='btn createpost-btn'><AiFillFileAdd className='createpost-icon'></AiFillFileAdd></a>
-                            <a className='btn createpost-btn'><AiOutlineGif className='createpost-icon'></AiOutlineGif></a>
                             </div>
                             <div className='col-sm float-right'>
                                 <div className='float-right'>

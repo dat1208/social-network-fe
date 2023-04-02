@@ -1,15 +1,39 @@
+
+a{
+    padding: 0!important;
+}
 .Main{
-    padding-left: 10%!important;
-    padding-right: 10%!important;
+    padding-left: 7%!important;
+    padding-right: 7%!important;
+    background-color: #FAF9F7;
+    height: 100%!important;
 }
 
+.left-col{
+    padding-top: 2%!important;
+    padding-right: 2%!important;
+    width: fit-content;
+}
 .user_info{
-   height: 300px!important; 
+   height: 400px!important; 
    border-style: solid;
    border-color: rgb(236, 234, 234);
    border-width: 1px;
    border-radius: 0px 0px 10px 10px;
     position: relative;
+}
+.user-info-main{
+    position: absolute;
+    top: 60%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.avatar{
+    margin-bottom: 1%;
+}
+.user-info-main{
+    text-align: center;
 }
 .right-col{
     padding-top: 2%!important;
@@ -17,7 +41,10 @@
 
 }
 .banner{
-    background-image: url('https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80');
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzISHFu5g715ET6o-YPesVCTdPStfrHoBCzQ&usqp=CAU') ;
+    background-size: cover;
+    width: 100%;
+    height: 60%;
 }
 .user_info > .bottom {
     padding: 2%;
@@ -25,10 +52,23 @@
 .bootom-right{
     padding-right: 0!important;
 }
-.bottom-icon-a{
-    margin-left: 2%!important;
+.margin-0{
+    margin: 0!important;
 }
-.bottom-icon{
-    font-size: 25px;
-    
+
+.dashboard-bar{
+    margin-top: 1%!important;
+    margin-bottom: 1%!important;
+}
+.dashboard-bar > a {
+ font-weight: 600;
+}
+.create-post{
+    padding: 10px;
+    padding-right: 0!important;
+    height: auto;
+    margin-bottom: 1.5%!important;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }

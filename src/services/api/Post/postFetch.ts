@@ -31,6 +31,34 @@ async function getPosts(page: number, size: number, sort: string){
     return Data;
 }
 
+async function getSelfPosts(page: number, size: number, sort: string, uid:string){
+
+    let Data;
+    try {
+            await config.with_token.get('/posts',
+        {
+            params:{
+                page:page,
+                size:size,
+                sort:sort,
+                uid: uid
+            }
+        }).then(res => {
+            console.log("handlePostsResponse data");
+        
+            Data =  handlePostsResponse(res.data);
+        }).catch(err => {
+            console.log("handlePostsResponse error");
+        handlePostsResponse(err.response.data);
+    
+        });
+    } catch (error) {
+        console.log("Post fetch error: " + error);
+    }
+    
+    return Data;
+}
+
 
 async function handlePostsResponse(res:Response_Page_Next_Previous){
     let Data;
@@ -64,4 +92,4 @@ async function handlePostsResponse(res:Response_Page_Next_Previous){
         return Data;
 }
 
-export default getPosts;
+export default {getPosts, getSelfPosts};

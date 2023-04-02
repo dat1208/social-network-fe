@@ -53,3 +53,7 @@ owner-info-username{
     border-radius: 10px; 
     overflow: hidden; 
 }
+
+.infinite-scroll-component__outerdiv{
+    padding: 0!important;
+}

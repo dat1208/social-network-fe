@@ -20,7 +20,7 @@ import io from 'socket.io-client';
  */
 
 export class NotifyService {
-  private SOCKET_SERVER_URL: string = 'http://localhost:3005';
+  private SOCKET_SERVER_URL: string = 'https://socialnetworkn.herokuapp.com';
   private CHANNEL: string = 'message';
   private socket: any;
 

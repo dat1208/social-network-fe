@@ -94,8 +94,35 @@ interface CreateComments {
         "ActionUser": string | null,
         "CreateDate": Date
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////USER INTERFACE//////////////////////////////////////////////////////////////////////
+interface UserByUid {
+    Id: string;
+    Username: string;
+    Email: string;
+    DisplayName: string;
+    AvatarUrl: string;
+    UserProfileUrl: string;
+    NumberOfFriend: number;
+    ListFriendsObjectId: string[];
+    ListPostsObjectId: string[];
+    ListObjectId_UserSendInvite: string[];
+    ListObjectId_GiveUserInvitation: string[];
+    CreatedAt: Date;
+}
+interface PagingItemFriend {
+    Id: string;
+    DisplayName: string;
+    Avatar: string;
+    ProfileUrl: string;
+  }
 
+interface FriendsItf{
+    NumberOfElement: number;
+    Paging: PagingItemFriend[];
+    NextPageURL: string;
+    PreviousPageURL: string;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface Response {
     "Id": string,
@@ -152,6 +179,13 @@ interface Response_GetRoomID extends Response{
         "CreatedAt": Date
     } | null
 }
+ interface Response_GetUser_ById extends Response{
+    "Data":UserByUid | null
+ }
+
+ interface Response_GetFriends extends Response{
+    "Data":FriendsItf | null
+ }
 export type {
     Response_Token_User,
     Response_Page_Next_Previous,
@@ -169,5 +203,10 @@ export type {
     Response_Like,
     Response_Signup,
     Response_GetId_User,
-    Response_GetRoomID
+    Response_GetRoomID,
+    UserByUid,
+    Response_GetUser_ById,
+    FriendsItf,
+    Response_GetFriends,
+    PagingItemFriend
 }

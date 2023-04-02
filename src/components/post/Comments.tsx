@@ -15,9 +15,6 @@ import Typography from '@mui/material/Typography';
 
 import { Response_Get_Comments, CommentsItf } from '../../interface/interfaces'; 
 import getComments from '../../services/api/Post/commentsFetch';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-
-
 
 interface Props {
     idPost: string; 

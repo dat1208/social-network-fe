@@ -44,12 +44,11 @@ function Navigation (){
     return(    
         <div>
             <Navbar></Navbar>
-            <div className='main_container'>
-                <div className='col-3'>
+            <div className='main_container row'>
+                <div className='col-md'>
                     <div className=" border rounded bg-white left-sidebar">
                         <div className="sidebar position-sticky">
                             <div>
-                                <h4 className='left-sidebar-title'>Friends</h4>
                                 <Friends></Friends>
 
                             </div>
@@ -57,7 +56,7 @@ function Navigation (){
                     </div>
 
                 </div>
-                <div className='col-6'>
+                <div className='col-7'>
                     <div className='main-title row w-100'>
                         <h4 className='main-title padding-0'>Activity Feed</h4>
                     </div>
@@ -67,7 +66,7 @@ function Navigation (){
                     </div>
                     
                     
-                    <div className='bar-title row'>
+                    <div className='bar-title m-0 row'>
                         <div className='col-6 padding-0'>
                             <a className='main-title-activity'><h4 className='main-title-activity'>All updates</h4></a>
                         </div>
@@ -80,47 +79,18 @@ function Navigation (){
                         </div>
                         </div>
                     </div>
+                    <div style={{marginBottom:'2%'}}></div>
 
                     {/* This component is one post */}
                     <PostCmpn></PostCmpn>
                     
 
                 </div>
-                <div className='col-md-push-3'>
+                <div className='col-md'>
                     <div className="border rounded bg-white right-sidebar row">
-                        <Notification />
-
                         <div>
-                            <h4 className='right-sidebar-title' >Latest updates</h4>
-                            <div>
-                                <div className='row row-right-sidebar-post'>
-                                
-                                        <div className="col-3 right-sidebar-post">
-                                                <Avatar className='right-sidebar-post-img' alt="Đạt" src={'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'} />
-                                        </div>
-                                        <div className="col-8 right-sidebar-post">
-                                                <div className="row right-sidebar-post-content">
-                                                    <p> <a className='right-sidebar-post-user'>John</a> posted an update</p> 
-                                                </div>
-                                                <div className="row right-sidebar-post-date">
-                                                    <p>2 year ago</p>
-                                                </div>
-                                        </div>
-                                </div>
-                                <div className='row row-right-sidebar-post'>
-                                        <div className="col-3 right-sidebar-post">
-                                                <img className='right-sidebar-post-img' src={'https://www.shareicon.net/data/512x512/2016/08/05/806962_user_512x512.png'}></img>
-                                        </div>
-                                        <div className="col-8 right-sidebar-post">
-                                                <div className="row right-sidebar-post-content">
-                                                    <p> <a className='right-sidebar-post-user'>Adele</a> posted an update</p> 
-                                                </div>
-                                                <div className="row right-sidebar-post-date">
-                                                    <p>2 year ago</p>
-                                                </div>
-                                        </div>
-                                </div>
-                            </div>
+                        <Notification />
+                            
                         </div>
                     </div>
                     

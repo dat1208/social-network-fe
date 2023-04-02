@@ -20,6 +20,8 @@ export const Notification: React.FC = (props: any) => {
       const notify: NotifyService = new NotifyService('this-is-accesstoken', '6404bf78f41c93a5bbe0f13e', page);
 
       notify.onListenMessage((message: any) => {
+        console.log('recieve noitfy', message);
+
         if (Array.isArray(message)) {
           setNotifies(prevItems => [...message, ...prevItems]);
         } else {
@@ -46,7 +48,7 @@ export const Notification: React.FC = (props: any) => {
 
   return (
     <div >
-      <h4 className='right-sidebar-title' >Notification</h4>
+      <h4 className='right-sidebar-title fw-bold' >Notification</h4>
       <div className=''>
         {notifies.length != 0 ?
           renderNotifications(notifies) :

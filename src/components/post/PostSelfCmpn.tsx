@@ -2,7 +2,7 @@ import React, { CSSProperties, ReactNode, useEffect } from "react";
 import "./style.css"
 import 'bootstrap/dist/css/bootstrap.css'
 import getPosts from "../../services/api/Post/postFetch";
-import { CommentsItf, CreateComments, Page_Next_Previous , Post} from "../../interface/interfaces";
+import { CreateComments, Page_Next_Previous , Post} from "../../interface/interfaces";
 import Gallery from "./MediaGalleryCmpn";
 import MyLoader from "../loading/MyLoader";
 import Avatar from '@mui/joy/Avatar';
@@ -23,13 +23,18 @@ import { Response_Create_Comments } from "../../interface/interfaces";
 import UserServices from "../../services/user/UserServices";
 /*interfaces*/
 type Fn = () => any;
+interface props{
+    userId:string
+}
 
-function PostCmpn (this: any){   
+
+
+function PostSelfCmpn (props:props){   
     /* useState */
    const [data, setData] = React.useState({
     data: Array<Post>()
    });
-
+   const [uid,setUid] = React.useState(props.userId);
    const [currentPageNumber, setCurrentPageNumber] = React.useState(0);
    const [loading, setloading] = React.useState(true);
    const [newComment, setNewComment] = React.useState({
@@ -120,12 +125,12 @@ function PostCmpn (this: any){
     useEffect(() => {
     const getData = async () => {
         setCurrentPageNumber(0);
-        const PostResponse = await getPosts.getPosts(currentPageNumber, 5,"desc") as unknown as Page_Next_Previous;
+        const PostResponse = await getPosts.getSelfPosts(currentPageNumber, 5,"desc", uid) as unknown as Page_Next_Previous;
         if(PostResponse != null)
         {
             setData({data:PostResponse.Paging});
         }
-            
+        
     };
     const user = JSON.parse(UserServices.getUserDisplay() || '{}');
     setUserDisplay(user);
@@ -141,7 +146,7 @@ const fetchMore : Fn = async () =>{
 
   async function fetchMoreData () {
         const getData = async () => {
-            const PostResponse = await getPosts.getPosts(currentPageNumber + 1, 5,"desc") as unknown as Page_Next_Previous;
+            const PostResponse = await getPosts.getSelfPosts(currentPageNumber + 1, 5,"desc", uid) as unknown as Page_Next_Previous;
             if(PostResponse != null)
             {
                 setData({
@@ -175,7 +180,7 @@ const fetchMore : Fn = async () =>{
 
 
         return (
-            <InfiniteScroll
+            <InfiniteScroll className="p-0 m-0"
             dataLength={data.data.length}
             next ={fetchMore}
             hasMore={true}
@@ -190,7 +195,7 @@ const fetchMore : Fn = async () =>{
                         <div className="row">   
                 <div>
                 {data.data.map(post => (
-                    <div style={{marginBottom:"2%"}}>
+                    <div className="p-0" style={{marginBottom:'2%'}}>
                     <div key={post.Id} className="main rounded bg-white border m-0 row" style={{paddingLeft:35}}>
                         <div className="owner-info row">
                         <div className="owner-avatar-flex padding-0 col-sm-auto col-2">
@@ -209,45 +214,16 @@ const fetchMore : Fn = async () =>{
                         <div className="content row mt-3">
                             <p  dangerouslySetInnerHTML={{__html: replaceWithBr(post.Content)}} ></p>
                         </div>
-                        <div className="row">
+                        <div className="row m-0">
                             <div className="margin-0">
                                 {handleMedia(post.Media)}
                             </div>
                         </div>
-                        <div className="row mt-4" >
+                        <div className="row m-0 mt-4" >
                             <NewComment pId={post.Id} numofCommentsProp={post.NumOfComment} updateNum={updateNumOfComments} updateNewComment={newCommentProp}></NewComment>
                         </div>
-                        <div className="row" >
-                        {newComment.commentList.map(comment =>(
-                        <div>
-                        <List sx={{ width: 500, maxWidth: '70%', bgcolor: 'background.paper' }}>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                            <Avatar alt={userDisplay.DisplayName} src={userDisplay.AvatarURL} />
-                            </ListItemAvatar>
-                            <ListItemText 
-                            primary={userDisplay.DisplayName}
-                            secondary={
-                        <React.Fragment>
-                        <Typography
-                            sx={{ display: 'inline' }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                        >
-                            {userDisplay.DisplayName}
-                        </Typography>
-                        {"-"+comment.Content}
-                        </React.Fragment>
-                            }
-                            />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        </List>
-                                </div>
-                            )
-
-                            )}
+                        <div className="row m-0" >
+                         
                         </div>
                         <div className="navigator mt-4 row">
                             <div className="col-sm">
@@ -255,9 +231,7 @@ const fetchMore : Fn = async () =>{
                                 <div className="col-sm"> 
                                     
                                        <Like pId={post.Id} isLiked={post.IsLiked} numofLikesProp={post.NumOfLike} ></Like>
-
-                                       
-                                    
+  
                                 </div>
                                 <div className="col-sm">
                                 <Badge badgeContent={post.NumOfComment} color="primary">
@@ -426,4 +400,4 @@ const Like : React.FC<props_like> = ({pId,numofLikesProp,isLiked}) =>{
     )
 }
 
-export default PostCmpn;
+export default PostSelfCmpn;

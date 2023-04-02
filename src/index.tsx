@@ -13,9 +13,8 @@ import {
 import Login from './containers/Login';
 import Home  from './containers/Home';
 import Signup from './containers/Signup';
-import Chat from './components/chat/ChatBox';
-import InBox from './components/chat/InBox';
 import Profile from './containers/Profile';
+import NotFound from './containers/profile/NotFound';
 
 
 const root = ReactDOM.createRoot(
@@ -36,12 +35,12 @@ const router = createBrowserRouter([
     element: <Signup></Signup>,
   },
   {
-    path: "/chat",
-    element: <InBox userIDto='64249a569831c420504875d6'></InBox>,
-  },
-  {
     path: "/profile/:userID",
     element: <Profile></Profile>,
+  },
+  {
+    path: "/profile/notfound",
+    element: <NotFound></NotFound>,
   }
 ]);
 
