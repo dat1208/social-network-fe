@@ -8,7 +8,7 @@ import MyLoader from "../loading/MyLoader";
 import Avatar from '@mui/joy/Avatar';
 import Comments from "./Comments";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Button, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import Badge from '@mui/material/Badge';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -34,6 +34,7 @@ function PostSelfCmpn (props:props){
    const [data, setData] = React.useState({
     data: Array<Post>()
    });
+   const [userOwnId, setUserOwnId] = React.useState("");
    const [uid,setUid] = React.useState(props.userId);
    const [currentPageNumber, setCurrentPageNumber] = React.useState(0);
    const [loading, setloading] = React.useState(true);
@@ -201,7 +202,7 @@ const fetchMore : Fn = async () =>{
                         <div className="owner-avatar-flex padding-0 col-sm-auto col-2">
                             <Avatar className="owner-avatar" alt={post.OwnerDisplayName}  src={post.OwnerAvatarURL}></Avatar>
                         </div>
-                        <div className="owner-info-flex col-10 dark-gray">
+                        <div className="owner-info-flex col-8 dark-gray">
                             <div>
                                 <p><a href={"/profile/"+post.OwnerId} className="owner-info-username dark-gray bold-650">{post.OwnerDisplayName}</a> posted an update</p>
                             </div>
@@ -209,7 +210,11 @@ const fetchMore : Fn = async () =>{
                                 <a className="owner-info-date bold-650 dark-gray">{getTimeElapsedSince(post.UpdateAt.toString())}</a>
                             </div> 
                         </div>
+                        <div className="col-2 ms-auto">
 
+                        {(post.OwnerId === userDisplay.Id) ? <SplitButton text={post.Content} images={post.Media} pid={post.Id}></SplitButton> :<></> }
+                        
+                        </div>
                         </div>
                         <div className="content row mt-3">
                             <p  dangerouslySetInnerHTML={{__html: replaceWithBr(post.Content)}} ></p>
@@ -367,6 +372,7 @@ interface props_like {
 
 import likePost from "../../services/api/Post/likePost";
 import { Response_Like } from "../../interface/interfaces";
+import SplitButton from "./Actionbtn";
 
 const Like : React.FC<props_like> = ({pId,numofLikesProp,isLiked}) =>{ 
     const [Liked, setLiked] = React.useState(isLiked);

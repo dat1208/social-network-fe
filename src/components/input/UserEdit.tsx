@@ -8,6 +8,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
 import { Avatar } from '@mui/material';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
 import './styles-useredit.css'
 
 interface props{
@@ -59,8 +61,48 @@ export default function UserEdit(prop: props) {
   }
   
 
-  function handleSave()  {
-    alert(displayName + username + emailAddress + password);
+ async function handleSave()  {
+    const validPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/);
+    const validEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+
+    if(username === "" || displayName === ""){
+      await setOpen(false);
+       Swal.fire({
+        title: 'Please type your name',
+        icon: 'warning',
+        confirmButtonText: 'Try Again'
+    })
+    setOpen(true);
+    }
+    else if(!validPassword.test(password))
+    {
+      setOpen(false);
+      Swal.fire({
+        title: 'Passwords validation failed',
+        text: 'One uppercase, one lowercase, one special character, and minimum 8 characters required',
+        icon: 'warning',
+        confirmButtonText: 'Try Again'
+    })
+      setOpen(true);
+      setPassword('');
+    }
+    else if(!validEmail.test(emailAddress))
+    {
+      setOpen(false);
+
+      Swal.fire({
+        title: 'Email validation failed',
+        icon: 'warning',
+        confirmButtonText: 'Try Again'
+    })
+    setOpen(true);
+
+      setEmailAddress('');
+    }
+    else {
+      
+    
+    }
   }
 
   return (

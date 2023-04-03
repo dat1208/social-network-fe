@@ -119,7 +119,7 @@ const Profile: React.FC = (): JSX.Element => {
                     <div className="row bg-white user_info w-100 margin-0">
                         <div className='user-info-main '>
                             <div className="avatar d-flex justify-content-center w-100">
-                                <Avatar className='border border-white border-2' alt={userFetch.data.DisplayName} style={{width:'170px',height:'auto'}} src={userFetch.data.AvatarUrl}></Avatar>
+                                <Avatar className='border border-white border-2' alt={userFetch.data.DisplayName} style={{width:'170px',height:'170px'}} src={userFetch.data.AvatarUrl}></Avatar>
                             </div>
                             <div className="name">
                                 

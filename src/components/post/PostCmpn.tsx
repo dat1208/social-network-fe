@@ -193,17 +193,22 @@ const fetchMore : Fn = async () =>{
                     <div style={{marginBottom:"2%"}}>
                     <div key={post.Id} className="main rounded bg-white border m-0 row" style={{paddingLeft:35}}>
                         <div className="owner-info row">
-                        <div className="owner-avatar-flex padding-0 col-sm-auto col-2">
-                            <Avatar className="owner-avatar" alt={post.OwnerDisplayName}  src={post.OwnerAvatarURL}></Avatar>
-                        </div>
-                        <div className="owner-info-flex col-10 dark-gray">
-                            <div>
-                                <p><a href={"/profile/"+post.OwnerId} className="owner-info-username dark-gray bold-650">{post.OwnerDisplayName}</a> posted an update</p>
+                            <div className="owner-avatar-flex padding-0 col-sm-auto col-2">
+                                <Avatar className="owner-avatar" alt={post.OwnerDisplayName}  src={post.OwnerAvatarURL}></Avatar>
                             </div>
-                            <div>
-                                <a className="owner-info-date bold-650 dark-gray">{getTimeElapsedSince(post.UpdateAt.toString())}</a>
-                            </div> 
-                        </div>
+                            <div className="owner-info-flex col-8 dark-gray">
+                                <div>
+                                    <p><a href={"/profile/"+post.OwnerId} className="owner-info-username dark-gray bold-650">{post.OwnerDisplayName}</a> posted an update</p>
+                                </div>
+                                <div>
+                                    <a className="owner-info-date bold-650 dark-gray">{getTimeElapsedSince(post.UpdateAt.toString())}</a>
+                                </div> 
+                            </div>
+                            <div className="col-2 ms-auto">
+
+                                {(post.OwnerId === userDisplay.Id) ? <SplitButton text={post.Content} images={post.Media} pid={post.Id}></SplitButton> :<></> }
+                                  
+                            </div>
 
                         </div>
                         <div className="content row mt-3">
@@ -393,6 +398,7 @@ interface props_like {
 
 import likePost from "../../services/api/Post/likePost";
 import { Response_Like } from "../../interface/interfaces";
+import SplitButton from "./Actionbtn";
 
 const Like : React.FC<props_like> = ({pId,numofLikesProp,isLiked}) =>{ 
     const [Liked, setLiked] = React.useState(isLiked);

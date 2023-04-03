@@ -186,6 +186,10 @@ interface Response_GetRoomID extends Response{
  interface Response_GetFriends extends Response{
     "Data":FriendsItf | null
  }
+
+ interface Response_DetelePost extends Response{
+    "Data":null
+ }
 export type {
     Response_Token_User,
     Response_Page_Next_Previous,
@@ -208,5 +212,6 @@ export type {
     Response_GetUser_ById,
     FriendsItf,
     Response_GetFriends,
-    PagingItemFriend
+    PagingItemFriend,
+    Response_DetelePost
 }

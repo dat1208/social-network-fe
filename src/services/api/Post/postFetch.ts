@@ -35,7 +35,7 @@ async function getSelfPosts(page: number, size: number, sort: string, uid:string
 
     let Data;
     try {
-            await config.with_token.get('/posts',
+            await config.with_token.get('/posts/user',
         {
             params:{
                 page:page,

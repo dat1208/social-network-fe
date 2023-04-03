@@ -43,8 +43,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
         autoplay: true,
         autoplaySpeed: 3000,
         pauseOnHover: true,
-        nextArrow: <SampleNextArrow className={undefined} style={undefined} onClick={undefined} />,
-        prevArrow: <SamplePrevArrow className={undefined} style={undefined} onClick={undefined} />,
+     
         
       };
 
@@ -52,7 +51,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
     <Slider {...settings}>
         {images.map(imageurl =>(
             <div>
-            <img style={{maxWidth:450, height:'auto'}} src={imageurl} />
+            <img style={{maxWidth:350, height:'auto'}} src={imageurl} />
             </div>
         ))}
       
