@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import getPosts from "../../services/api/Post/postFetch";
 import { CommentsItf, CreateComments, Page_Next_Previous , Post} from "../../interface/interfaces";
 import Gallery from "./MediaGalleryCmpn";
-import MyLoader from "../loading/MyLoader";
+
 import Avatar from '@mui/joy/Avatar';
 import Comments from "./Comments";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -17,8 +17,9 @@ import Box from '@mui/material/Box';
 import SendIcon from '@mui/icons-material/Send';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import init from "../../services/api/config/init";
-
-
+import likePost from "../../services/api/Post/likePost";
+import { Response_Like } from "../../interface/interfaces";
+import MyLoader from "../Loading/MyLoader";
 import { Response_Create_Comments } from "../../interface/interfaces";
 import UserServices from "../../services/user/UserServices";
 /*interfaces*/
@@ -390,9 +391,6 @@ interface props_like {
 }
 
 
-
-import likePost from "../../services/api/Post/likePost";
-import { Response_Like } from "../../interface/interfaces";
 
 const Like : React.FC<props_like> = ({pId,numofLikesProp,isLiked}) =>{ 
     const [Liked, setLiked] = React.useState(isLiked);
