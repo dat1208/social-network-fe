@@ -2,7 +2,6 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Provider from 'react-redux/es/components/Provider';
 import { store } from './store/store';
@@ -11,9 +10,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from './containers/Login';
-import Home  from './containers/Home';
+import Home from './containers/Home';
 import Signup from './containers/Signup';
-import Chat from './components/chat/ChatBox';
 import InBox from './components/chat/InBox';
 
 
@@ -24,7 +22,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element:  <Login></Login>,
+    element: <Login></Login>,
   },
   {
     path: "/home",
@@ -34,10 +32,6 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <Signup></Signup>,
   },
-  {
-    path: "/chat",
-    element: <InBox userIDto='6423e3f14c08244aca2724fa'></InBox>,
-  }
 ]);
 
 
