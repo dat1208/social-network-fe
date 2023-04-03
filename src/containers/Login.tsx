@@ -16,7 +16,6 @@ import { useAppSelector } from '../store/store'
 
 import { Token_User } from "../interface/interfaces";
 
-import LoadingCmpt from '../components/loading/LoadingCmpt'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {

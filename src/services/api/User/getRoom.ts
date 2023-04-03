@@ -21,7 +21,7 @@ async function getRoom(UIDto :string, UIDown :string) {
             }
                
         }
-4    }).catch(err => TokenServices.refreshToken());
+   }).catch(err => TokenServices.refreshToken());
     return roomID;
 }
 
