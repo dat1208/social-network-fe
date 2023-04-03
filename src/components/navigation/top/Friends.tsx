@@ -2,17 +2,32 @@ import { Fingerprint } from '@mui/icons-material'
 import { Avatar, IconButton } from '@mui/material'
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import React, { useEffect, useState } from 'react'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Button } from 'react-bootstrap';
 import getF from '../../../services/api/User/getFriends';
 import { Response_GetFriends, FriendsItf,PagingItemFriend } from '../../../interface/interfaces';
+import InBox from '../../chat/InBox';
+import getuid from '../../../services/api/User/getuid';
 
 function Friends (){
+
+    const  [ownId, setOwnId] = React.useState("");
+    React.useEffect(() => {
+        const fetchData = async () => {
+        
+        const ownUidFromToken = await getuid();
+            if(ownUidFromToken)
+            setOwnId(ownUidFromToken);
+        
+    }
+        fetchData();
+      }, []);
+
+      
 
     const [dataFriends,setDataFriends] = React.useState({
         dataFriends: Array<PagingItemFriend>()
     })
 
+    const [isShowChat, setIsShowChat] = React.useState(false);
     React.useEffect(() =>{
 
         async function getFriend(){
@@ -37,6 +52,9 @@ function Friends (){
 
        }
 
+       function handleChatClick(){
+            setIsShowChat(!isShowChat);
+       }
     return(
                                 <div>
                                     <h4 className='left-sidebar-title fw-bold'>Friends</h4>
@@ -52,15 +70,14 @@ function Friends (){
                                                 <a href={'/profile/'+friend.Id} className='p-0' style={{fontSize:'100%'}} >{friend.DisplayName}</a>
                                             </div>
                                         </div>
-                                        <div style={{width:'fit-content'}} className='col-3 p-0'>
-                                            <IconButton aria-label="ChatBubble" color="inherit">
-                                            <ChatBubbleIcon style={{width:20,height:'auto'}} />
+                                        <div style={{width:'fit-content'}} className='col-sm-auto p-0'>
+                                            <IconButton onClick={handleChatClick} aria-label="ChatBubble" color="inherit">
+                                            <ChatBubbleIcon style={{width:25,height:'auto'}} />
                                             </IconButton>
-                                            <IconButton aria-label="ChatBubble" color="inherit">
-                                            <MoreHorizIcon style={{width:20,height:'auto'}} />
-                                            </IconButton>
+                                            {isShowChat ? <InBox ownIdUser={ownId} isShow={isShowChat} friendId={friend.Id} friendAvatarUrl={friend.Avatar} friendName={friend.DisplayName}></InBox> :<></> }
+                                            
                                         </div>
-                                      
+                                       
                                     </div>
                                     )) }  
 

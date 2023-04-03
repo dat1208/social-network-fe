@@ -9,7 +9,8 @@ interface Props {
   isShow: boolean,
   friendId: string,
   friendAvatarUrl: string,
-  friendName: string,
+  friendName: string, 
+  ownIdUser:string
 }
 
 export interface Message {
@@ -22,33 +23,25 @@ const InBox: React.FC<Props> = ({
   isShow,
   friendId,
   friendAvatarUrl,
-  friendName
+  friendName,
+  ownIdUser
 }) => {
 
   const [messages, setMessages] =
     React.useState({ data: Array<IMessage>() });
 
-  const [ownId, setOwnId] = React.useState('642484213762b8ff8462d781');
-  const [roomId, setRoomID] = React.useState('f1892fe3-e2af-49b4-be6b-4d6de6729fce');
-
-
-  const convertRecieveMessageToIMessage = (message: Message, userID: string): IMessage => {
-    const inputMessage: IMessage = {
-      avatar: friendAvatarUrl,
-      isMe: message.userID == userID ? true : false,
-      message: message.text,
-      time: '',
-      id: message.id
-    };
-    return inputMessage;
-  }
+  const [ownId, setOwnId] = React.useState(ownIdUser);
+  const [roomId, setRoomID] = React.useState('');
+  const [isShowChat, SetIsShowChat] = React.useState(isShow);
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const ownUidFromToken = await getuid() as unknown as string;
+        const ownUidFromToken = await getuid();
         
-        if (ownUidFromToken) { setOwnId(ownUidFromToken); }
+        if (ownUidFromToken) { setOwnId(ownUidFromToken); 
+        console.log("OwnId "+ownId)
+        }
 
         const roomId = await getRoom(friendId, ownId);
 
@@ -82,7 +75,7 @@ const InBox: React.FC<Props> = ({
 
             querySnapshot.forEach((doc) => {
 
-              const temp = doc.data() as Message;
+              const temp = doc.data() as unknown as Message;
 
               const messageToDisplay =
                 convertRecieveMessageToIMessage(temp, ownId);
@@ -91,6 +84,7 @@ const InBox: React.FC<Props> = ({
             });
 
             setMessages({ data: [...messagesTemp].reverse() });
+            console.log(messagesTemp); 
           });
       } catch (error) {
         console.error(error);
@@ -99,21 +93,42 @@ const InBox: React.FC<Props> = ({
     fetchData();
   }, []);
 
+  const convertRecieveMessageToIMessage = (message: Message, userID: string): IMessage => {
+    console.log("message");
+    console.log(message);
+    console.log("userID: "+userID);
+    const inputMessage: IMessage = {
+      avatar: friendAvatarUrl,
+      isMe: message.userID === ownId ? true : false,
+      message: message.text,
+      time: "",
+      id: message.id
+    };
+    console.log(inputMessage);
+    return inputMessage;
+  }
+
+ 
+
 
   return (
-    <main style={{ maxWidth: '45%' }} className='chat-box border rounded'>
+    <>
+      <main style={{ maxWidth: '45%' }} className='chat-box border rounded'>
       <MessageComponent
         messages={messages.data}
         senderName={friendName}
         senderAvatar={friendAvatarUrl}
         onClose={function (): void {
-          console.log('Close Message');
-          throw new Error('Function not implemented.');
+          
         }}
         roomId={roomId}
-        friendId={''}
-        userId={friendId} />
+        friendId={friendId}
+        userId={ownId} />
     </main>
+     
+    </>
+    
+    
   );
 }
 

@@ -66,7 +66,7 @@ export default function UserEdit(prop: props) {
     const validEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 
     if(username === "" || displayName === ""){
-      await setOpen(false);
+      setOpen(false);
        Swal.fire({
         title: 'Please type your name',
         icon: 'warning',

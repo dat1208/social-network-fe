@@ -52,7 +52,8 @@ const MessageComponent: React.FC<IProps> = ({
         text: inputValue.trim(),
         createdTime: serverTimestamp(),
       }
-
+      console.log(MessageToSendFirebase);
+      console.log(userId)
       handleSendMessageToFirebase(roomId, MessageToSendFirebase)
       .then((message: any) => {
         setInputValue("");
