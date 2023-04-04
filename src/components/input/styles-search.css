@@ -1,0 +1,22 @@
+.search-input{
+    position: relative !important;
+}
+.result{
+    position: absolute !important;
+    bottom: -151px;
+    height: 150px; /* set the height of the child element */
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+}
+.result >a:hover{
+    background-color: rgb(241, 240, 240);
+}
+.name{
+    font-size: large;
+    font-weight: 530;
+    line-height: 100%;
+}

@@ -12,6 +12,7 @@ import Avatar from '@mui/joy/Avatar/Avatar'
 import Friends from './Friends'
 import Navbar from './Navbar'
 import { Notification } from '../../notify/notify'
+import Search from '../../input/Search'
 
 function Navigation (){
 
@@ -67,17 +68,10 @@ function Navigation (){
                     
                     
                     <div className='bar-title m-0 row'>
-                        <div className='col-6 padding-0'>
+                        <div className='col-12 text-left padding-0'>
                             <a className='main-title-activity'><h4 className='main-title-activity'>All updates</h4></a>
                         </div>
-                        <div className='col-6 col-auto padding-0 search'>
-                        <div className="input-group rounded">
-                            <input type="search" className="form-control rounded search-input" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                            <span className="input-group-text border-0 search-icon" id="search-addon">
-                            <i className="fas fa-search search-icon"></i>
-                            </span>
-                        </div>
-                        </div>
+                        
                     </div>
                     <div style={{marginBottom:'2%'}}></div>
 
@@ -91,40 +85,6 @@ function Navigation (){
                         <div>
                         <Notification />
                             
-                        </div>
-                    </div>
-                    
-                    <div className="border rounded bg-white right-sidebar row">
-                        <div>
-                            <h4 className='right-sidebar-title' >Recently Active Members</h4>
-                            <div>
-                                <div className='row row-right-sidebar-post'>
-                                        <div className="col-3 right-sidebar-post">
-                                                <img className='right-sidebar-post-img' src={'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'}></img>
-                                        </div>
-                                        <div className="col-8 right-sidebar-post">
-                                                <div className="row right-sidebar-post-content">
-                                                    <p> <a className='right-sidebar-post-user'>John</a> posted an update</p> 
-                                                </div>
-                                                <div className="row right-sidebar-post-date">
-                                                    <p>2 year ago</p>
-                                                </div>
-                                        </div>
-                                </div>
-                                <div className='row row-right-sidebar-post'>
-                                        <div className="col-3 right-sidebar-post">
-                                                <img className='right-sidebar-post-img' src={'https://www.shareicon.net/data/512x512/2016/08/05/806962_user_512x512.png'}></img>
-                                        </div>
-                                        <div className="col-8 right-sidebar-post">
-                                                <div className="row right-sidebar-post-content">
-                                                    <p> <a className='right-sidebar-post-user'>Adele</a> posted an update</p> 
-                                                </div>
-                                                <div className="row right-sidebar-post-date">
-                                                    <p>2 year ago</p>
-                                                </div>
-                                        </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

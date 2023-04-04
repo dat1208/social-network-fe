@@ -3,8 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './style.css'
 import { Avatar } from '@mui/material';
-import addFriend from '../../services/api/User/addFriend';
-import getUID from '../../services/api/User/getuid';
 
 interface props{
   Id: string,
@@ -13,7 +11,7 @@ interface props{
   createdTime: string
 }
 
-export function NotifyInvite (props: props) {
+export function NotifyComment (props: props) {
 
   function getTimeElapsedSince(dateString: string): string {
     const date = new Date(dateString);
@@ -38,17 +36,6 @@ export function NotifyInvite (props: props) {
     const months = Math.floor(days / 30);
     return `${months} months ago`;
   }
-
-  const acceptButtonClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    const uid = await getUID();
-    if(uid)
-       addFriend.accept(uid,props.Id);
-  };
-  const deniedButtonClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-      const uid = await getUID();
-      if(uid)
-         addFriend.deny(uid,props.Id);
-  };
   
   return (
     <div className='row row-right-sidebar-post d-flex align-items-center notify-layout'
@@ -61,19 +48,12 @@ export function NotifyInvite (props: props) {
       <div className="col-8 right-sidebar-post">
         <div className="row right-sidebar-post-content">
           <p>
-            
-            <a href={"/profile/"+props.Id}><span className='right-sidebar-post-user'>{props.DisplaynameUserSent} </span></a>
-            sent a friend request
+          <a href={"/profile/"+props.Id}><span className='right-sidebar-post-user'>{props.DisplaynameUserSent} </span></a>
+            sent a new comment
           </p>
         </div>
         <div className="row right-sidebar-post-date">
           <p>{getTimeElapsedSince(props.createdTime)}</p>
-        </div>
-        <div className="row right-sidebar-post-date">
-          <div className="d-flex justify-content-start" style={{ padding: 0 }} >
-            <button onClick={acceptButtonClick} className="button button-accept">Accept</button>
-            <button onClick={deniedButtonClick}  className="button button-denie">Deny</button>
-          </div>
         </div>
       </div>
       <div className="col-1 right-sidebar-post">

@@ -14,6 +14,7 @@ import { UserByUid } from '../interface/interfaces';
 import AddUnFriend from '../components/user/AddUnFriend';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import UserServices from '../services/user/UserServices';
+import InBox from '../components/chat/InBox';
 const Profile: React.FC = (): JSX.Element => {
     const { userID } = useParams<{userID: string}>();
 
@@ -26,7 +27,6 @@ const Profile: React.FC = (): JSX.Element => {
         "DisplayName": "",
         "UserProfileUrl": ""
     });
-
 
     const [userFetch,setUserFetch] = React.useState(
         {
@@ -61,8 +61,6 @@ const Profile: React.FC = (): JSX.Element => {
       }
       
       
-      
-
     React.useEffect(() =>{
 
         async function getUserDisplay(){
@@ -70,13 +68,12 @@ const Profile: React.FC = (): JSX.Element => {
             if(userID){
                 const userInfo = await getUserById(userID) as unknown as UserByUid;
                 setUserFetch({data: userInfo});
-                
             }
             console.log(userFetch.data);
 
-            const ownId = await getUID();
-            if(ownId)
-                setUserOwnId(ownId);
+            const ownIdtemp = await getUID();
+            if(ownIdtemp)
+                setUserOwnId(ownIdtemp);
                 
             
         }
@@ -102,20 +99,14 @@ const Profile: React.FC = (): JSX.Element => {
             return true;
        }
 
-       function checkStatusAddfriend(listFriendId:string[]){
-        listFriendId.forEach(fID => {
-            if(fID === userOwnId)
-            return true;
-        });
-        return false;
-       }
+ 
     return ( 
         
         <div>
             <Navbar></Navbar>
             <div className="Main row w-100 h-100 margin-0">
                 
-                <div className="col-md-10 p-0">
+                <div className="col-md-9 p-0">
                     <div className="row bg-white user_info w-100 margin-0">
                         <div className='user-info-main '>
                             <div className="avatar d-flex justify-content-center w-100">
@@ -139,13 +130,9 @@ const Profile: React.FC = (): JSX.Element => {
                             {checkMatchUserId(userFetch.data.Id) ? <UserEdit userId={userFetch.data.Id} displayName={userFetch.data.DisplayName} emailAddress={userFetch.data.Email} username={userFetch.data.Username} urlAvatar={userFetch.data.AvatarUrl}></UserEdit> : 
                             <>
                                 <div style={{marginRight:'1%'}}>
-                                <AddUnFriend status={checkStatusAddfriend(userFetch.data.ListFriendsObjectId)} userId={userFetch.data.Id} ></AddUnFriend>
+                                <AddUnFriend ownIdUser={userOwnId} listFriends={userFetch.data.ListFriendsObjectId} userId={userFetch.data.Id} ></AddUnFriend>
                                 </div>
-                               <div>
-                               <IconButton color="inherit" component="label">
-                                <ChatBubbleIcon />
-                                </IconButton>
-                               </div>
+                               
                                 
                             </>}
                                 

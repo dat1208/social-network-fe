@@ -77,7 +77,7 @@ function Signup() {
       <div style={{ height: "100vh" }} className='row'>
         <div className='col-7 d-flex align-items-center justify-content-center' style={{ backgroundImage: `url(${background})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", opacity: 1 }} >
           <div>
-            <h2 style={{ float: 'left', fontWeight: 'bolder', opacity: 1 }}>BuddyBoss</h2>
+            <h2 style={{ float: 'left', fontWeight: 'bolder', opacity: 1 }}>SocialNetwork</h2>
             <br />
             <p style={{ float: 'left' }} > Join with us.</p>
           </div>

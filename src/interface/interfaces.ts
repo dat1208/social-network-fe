@@ -122,6 +122,48 @@ interface FriendsItf{
     NextPageURL: string;
     PreviousPageURL: string;
 }
+
+interface UserEdit{
+    Id: string;
+    Username: string;
+    Password: string;
+    Email: string;
+    HashSalt: string;
+    CreatedAt: string;
+    DisplayName: string;
+    AvatarUrl: string;
+    UserProfileUrl: string;
+    NumberOfFriend: number;
+    ListFriendsObjectId: string[];
+    ListPostsObjectId: string[];
+    ListObjectId_UserSendInvite: string[];
+    ListObjectId_GiveUserInvitation: string[];
+}
+
+interface SearchItf{
+    "Id": string,
+    "DisplayName": string,
+    "Username": string,
+    "AvatarUrl": string,
+    "UserProfileUrl": string
+}
+
+
+///////////////////////////////////////////////////////////////FRIEND INTERFACE//////////////////////////////////////////////////////////
+interface UserInvitations {
+    NumberOfElement: number;
+    Paging: {
+      Id: string;
+      Username: string;
+      Email: string;
+      DisplayName: string;
+      AvatarUrl: string;
+      UserProfileUrl: string;
+    }[];
+    NextPageURL: string;
+    PreviousPageURL: string;
+  }
+  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface Response {
@@ -190,6 +232,15 @@ interface Response_GetRoomID extends Response{
  interface Response_DetelePost extends Response{
     "Data":null
  }
+ interface Response_EditUser extends Response{
+    "Data": UserEdit | null
+ }
+ interface Response_Search extends Response{
+    "Data": Array<SearchItf>
+ }
+ interface Response_UserInvitations extends Response{
+    "Data": UserInvitations | null
+ }
 export type {
     Response_Token_User,
     Response_Page_Next_Previous,
@@ -213,5 +264,10 @@ export type {
     FriendsItf,
     Response_GetFriends,
     PagingItemFriend,
-    Response_DetelePost
+    Response_DetelePost,
+    Response_EditUser,
+    SearchItf,
+    Response_Search,
+    Response_UserInvitations,
+    Response
 }

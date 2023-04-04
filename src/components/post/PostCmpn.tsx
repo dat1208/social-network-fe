@@ -279,7 +279,7 @@ const fetchMore : Fn = async () =>{
                             <div className="col-sm">
                                 <div className="row">
                                 <div className="col-sm likes">
-                                    <Button>Likes</Button>
+                                    
                                 </div>
                                 <div className="col-sm comments">
                                     <Comments idPost={post.Id} ></Comments>

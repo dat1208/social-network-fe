@@ -30,7 +30,7 @@ const Login = () => {
   /* useState */
   const [swalProps, setSwalProps] = useState({});
   const [username, setUsername] = React.useState("thanhdatne")
-  const [password, setPassword] = React.useState("thanhdatnepass")
+  const [password, setPassword] = React.useState("Thanhdat123@")
   const [isDisabled, setIsDisabled] = React.useState(true);
   const [loading, setloading] = React.useState(true);
   /* useState */
@@ -110,9 +110,9 @@ const Login = () => {
       <div style={{ height: "100vh" }} className='row'>
         <div className='col-7 d-flex align-items-center justify-content-center' style={{ backgroundImage: `url(${background})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", opacity: 1 }} >
           <div>
-            <h2 style={{ float: 'left', fontWeight: 'bolder', opacity: 1 }}>BuddyBoss</h2>
+            <h2 style={{ float: 'left', fontWeight: 'bolder', opacity: 1 }}>SocialNetwork</h2>
             <br />
-            <p style={{ float: 'left' }} > Sell memberships, courses, and build online communities.</p>
+            <p style={{ float: 'left' }} > online communities.</p>
           </div>
         </div>
         <div className='col-5 d-flex align-items-center justify-content-center'>
@@ -135,15 +135,7 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            <div className="row mt-4 d-flex">
-              <div className="col align-items-left d-flex">
-                <input style={{ marginRight: 10 }} type="checkbox" className="form-check-input" />
-                <span>Remember me</span>
-              </div>
-              <div className="col text-right">
-                <a style={{ textDecoration: 'none', color: '#5a5a5a' }} href='#'>For got password?</a>
-              </div>
-            </div>
+           
             <div>
               <Button id='btn-login' onClick={btnLoginClick} className="button btn btn-primary w-100 mt-4" disabled={isDisabled} style={{ backgroundColor: '#69BFFF', border: 'none', fontWeight: 'bolder' }}>Login</Button>            </div>
             <div>

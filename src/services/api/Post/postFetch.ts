@@ -20,8 +20,7 @@ async function getPosts(page: number, size: number, sort: string) {
 
                 Data = handlePostsResponse(res.data);
             }).catch(err => {
-                console.log("handlePostsResponse error");
-                handlePostsResponse(err.response.data);
+                TokenServices.refreshToken();
 
             });
     } catch (error) {
@@ -44,13 +43,12 @@ async function getSelfPosts(page: number, size: number, sort: string, uid:string
                 uid: uid
             }
         }).then(res => {
-            console.log("handlePostsResponse data");
+
         
             Data =  handlePostsResponse(res.data);
         }).catch(err => {
-            console.log("handlePostsResponse error");
-        handlePostsResponse(err.response.data);
-    
+            
+            TokenServices.refreshToken();
         });
     } catch (error) {
         console.log("Post fetch error: " + error);

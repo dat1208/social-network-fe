@@ -8,8 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
 import { Avatar } from '@mui/material';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-
+import editUser from '../../services/api/User/userEdit';
 import './styles-useredit.css'
 
 interface props{
@@ -22,14 +21,20 @@ interface props{
 
 export default function UserEdit(prop: props) {
   const [open, setOpen] = React.useState(false);
+  const [userId, setUserId] = React.useState(prop.userId);
+
   const [displayName, setDisplayName] = React.useState(prop.displayName);
   const [emailAddress, setEmailAddress] = React.useState(prop.emailAddress);
-  const [userId, setUserId] = React.useState(prop.userId);
   const [username, setUsername] = React.useState(prop.username);
   const [password, setPassword] = React.useState("");
   const [urlImage, setUrlImage] = React.useState(prop.urlAvatar);
+  const [image, setImage] = React.useState<File>();
 
-  
+  const [displayNameError, setDisplayNameError] = React.useState(false);
+  const [emailAddressError, setEmailAddressError] = React.useState(false);
+  const [usernameError, setUsernameError] = React.useState(false);
+  const [passwordError, setpasswordError] = React.useState(false);
+
   React.useEffect(() =>{
     
         
@@ -46,8 +51,10 @@ export default function UserEdit(prop: props) {
 
   function handleSelectedImage(event: React.ChangeEvent<HTMLInputElement>): void {
     const selectedFile = event.target.files && event.target.files[0];
+    
     if (selectedFile) {
       // Do something with the selected file, e.g.:
+      setImage(selectedFile);
       const image = new Image();
       image.src = URL.createObjectURL(selectedFile);
       image.onload = () => {
@@ -65,45 +72,67 @@ export default function UserEdit(prop: props) {
     const validPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/);
     const validEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 
-    if(username === "" || displayName === ""){
-      setOpen(false);
-       Swal.fire({
-        title: 'Please type your name',
-        icon: 'warning',
-        confirmButtonText: 'Try Again'
-    })
-    setOpen(true);
-    }
-    else if(!validPassword.test(password))
+    if(username === "")
     {
-      setOpen(false);
-      Swal.fire({
-        title: 'Passwords validation failed',
-        text: 'One uppercase, one lowercase, one special character, and minimum 8 characters required',
-        icon: 'warning',
-        confirmButtonText: 'Try Again'
-    })
-      setOpen(true);
-      setPassword('');
+      setUsernameError(true);
+      setUsername('')
     }
+    else if(displayName === ""){
+      setDisplayNameError(true);
+      setDisplayName("");
+    }
+    else if(password.length > 0)
+    {
+      if(!validPassword.test(password)){
+        setpasswordError(true);
+        setPassword('');
+      
+      }
+      else if(!validEmail.test(emailAddress))
+      {
+       setEmailAddressError(true);
+  
+        setEmailAddress('');
+      }
+      else {
+  
+        const props = {
+          DisplayName: displayName,
+          Email: emailAddress,
+          Username: username,
+          AvatarUrl: image,
+          Password: password,
+          uid: userId
+        }
+
+        handleClose
+       await editUser(props);
+      
+      }
+    }
+    
     else if(!validEmail.test(emailAddress))
     {
-      setOpen(false);
-
-      Swal.fire({
-        title: 'Email validation failed',
-        icon: 'warning',
-        confirmButtonText: 'Try Again'
-    })
-    setOpen(true);
+     setEmailAddressError(true);
 
       setEmailAddress('');
     }
     else {
+
+      const props = {
+        DisplayName: displayName,
+        Email: emailAddress,
+        Username: username,
+        AvatarUrl: image,
+        Password: password,
+        uid: userId
+      }
+      handleClose
+     await editUser(props);
       
-    
     }
   }
+
 
   return (
     <div>
@@ -118,10 +147,10 @@ export default function UserEdit(prop: props) {
           </DialogContentText>
           <div className="row">
           <div className="col-8">
-          <TextField  margin="dense" id="displayname" label="Display Name" value={displayName} onChange={(e)=>{setDisplayName(e.target.value)}} fullWidth ></TextField>
-          <TextField  margin="dense" id="email" label="Email Address" type="email" fullWidth value={emailAddress} onChange={(e)=>{setEmailAddress(e.target.value)}}></TextField>
-          <TextField  margin="dense" id="username" label="Username" type="text" fullWidth value={username} onChange={(e)=>{setUsername(e.target.value)}}></TextField>
-          <TextField  margin="dense" id="password" label="Password" type="password" fullWidth value={password} onChange={(e)=>{setPassword(e.target.value)}}></TextField>
+          <TextField  margin="dense" error={displayNameError} id="displayname" label="Display Name" value={displayName} onChange={(e)=>{setDisplayName(e.target.value)}} fullWidth ></TextField>
+          <TextField  margin="dense" error={emailAddressError} id="email" label="Email Address" type="email" fullWidth value={emailAddress} onChange={(e)=>{setEmailAddress(e.target.value)}}></TextField>
+          <TextField  margin="dense" error={usernameError}  id="username" label="Username" type="text" fullWidth value={username} onChange={(e)=>{setUsername(e.target.value)}}></TextField>
+          <TextField  margin="dense" error={passwordError} id="password" label="Password" type="password" fullWidth value={password} onChange={(e)=>{setPassword(e.target.value)}}></TextField>
           </div>
           <div className="col-4 right-col">
             <div className="avatar w-100 h-100">

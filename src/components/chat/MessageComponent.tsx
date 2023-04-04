@@ -3,6 +3,7 @@ import "./chat.css";
 import { addDoc, collection, doc, getDoc, serverTimestamp } from "@firebase/firestore";
 import { db } from "../../services/firebase/init";
 import { Message } from "./InBox";
+import { Avatar } from "@mui/material";
 
 export interface IMessage {
   id: string;
@@ -87,7 +88,7 @@ const MessageComponent: React.FC<IProps> = ({
   return (
     <div className="message-container">
       <div className="message-header">
-        <img src={senderAvatar} alt="Avatar" />
+        <Avatar style={{marginRight:"1%"}} src={senderAvatar} alt="Avatar" />
         <h3>{senderName}</h3>
         <button onClick={onClose}>
           <i className="fas fa-times"></i>
@@ -96,7 +97,7 @@ const MessageComponent: React.FC<IProps> = ({
       <div className="message-body">
         {messages.map((message) => (
           <div key={message.id} className={`message ${message.isMe ? "right" : "left"}`}>
-            {!message.isMe && <img src={message.avatar} alt="Avatar" />}
+            {!message.isMe && <Avatar style={{marginRight:"2%"}} src={message.avatar} alt="Avatar" />}
             <div className="message-content">
               <div className="message-background">
                 <p>{message.message}</p>

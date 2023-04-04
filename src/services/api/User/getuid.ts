@@ -15,7 +15,6 @@ async function getUID() {
             TokenServices.refreshToken();
         else if(response.Status === 0){
             OwnUID = response.Data;
-            console.log(OwnUID);
         }
     }).catch(err => TokenServices.refreshToken())
 

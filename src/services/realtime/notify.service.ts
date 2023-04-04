@@ -20,7 +20,7 @@ import io from 'socket.io-client';
  */
 
 export class NotifyService {
-  private SOCKET_SERVER_URL: string = 'https://socialnetworkn.herokuapp.com';
+  private SOCKET_SERVER_URL: string = 'http://localhost:3010';
   private CHANNEL: string = 'message';
   private socket: any;
 
@@ -29,6 +29,7 @@ export class NotifyService {
       {
         auth: { accesstoken },
         query: { userId: userId, limitMessage: limitMessage },
+        transports: ['websocket']
       });
     console.log('SOCKET.IO Establish connection')
   }

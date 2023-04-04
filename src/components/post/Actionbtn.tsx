@@ -18,6 +18,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import deletePost from '../../services/api/Post/deletePost';
 import { CameraAltRounded } from '@mui/icons-material';
 import Gallery from "./MediaGalleryCmpn";
+import userEdit from '../../services/api/Post/editPost';
+
 const options = ['Edit post', 'Delete post'];
 interface props{
     pid: string;
@@ -30,6 +32,9 @@ export default function SplitButton(props: props) {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [openEdit, setOpenEdit] = React.useState(false);
   const [text, setText] = React.useState(props.text);
+  const [imagePreviews, setImagePreviews] = React.useState<Array<string>>(props.images);
+  const [images, setImages] = React.useState<FileList>();
+
 
   const handleClick = async () => {
    //alert(`You clicked ${options[selectedIndex]}`);
@@ -74,10 +79,25 @@ export default function SplitButton(props: props) {
     setOpenEdit(false);
   };
 
-    function handleSaveEdit() {
-        alert('Function not implemented.');
+   async function handleSaveEdit() {
+      if(props.pid)
+        await userEdit(images,text,props.pid);
     }
+    async function selectFiles(e: React.ChangeEvent<HTMLInputElement>){
+      let files = e.target.files;
 
+      const temp: Array<string> = [];
+  
+      if (files) {
+          setImages(files);
+          for (let i = 0; i < files.length; i++) {
+              temp.push(URL.createObjectURL(files[i]));
+          }
+      
+          setImagePreviews(temp);
+          console.log(imagePreviews);
+
+    }}
   return (
     <React.Fragment>
       <ButtonGroup variant="outlined" ref={anchorRef} aria-label="split button">
@@ -143,13 +163,13 @@ export default function SplitButton(props: props) {
             </div>
            
            <div className="row">
-            {(props.images.length > 0) ? <Gallery images={props.images}></Gallery> : <></>}
+            {(imagePreviews.length > 0) ? <Gallery images={imagePreviews}></Gallery> : <></>}
             
            </div>
            <div className="row -100 h-100">
                 <label>
                 <a id='btn-avatar-edit' ><CameraAltRounded style={{color:'gray'}}/></a>
-                <input type="file" accept="image/*" style={{display:'none'}}  />
+                <input type="file" accept="image/*" multiple onChange={(e) => selectFiles(e)} style={{display:'none'}}  />
                 </label>
             </div>
             

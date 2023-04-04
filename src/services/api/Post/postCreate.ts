@@ -2,7 +2,6 @@ import init from "../config/init";
 import { Create_Post, Response_Create_Post } from "../../../interface/interfaces";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
-
 async function handleSubmitService(text:string,images:FileList | undefined) {
         
     const formData = new FormData();
@@ -47,6 +46,9 @@ function handleCreatePostResponse(response: Response_Create_Post){
                 icon: 'success',
                 confirmButtonText: 'Get back',
                 allowOutsideClick: true,
+                didClose() {
+                    window.location.reload();
+                },
             })
             check = true;
             break;
